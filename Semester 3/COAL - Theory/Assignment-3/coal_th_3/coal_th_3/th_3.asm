@@ -1,65 +1,52 @@
-;Q1
+;Q10
 
 include irvine32.inc
-arrSum PROTO, 
-	array1:PTR DWORD, size_arr:DWORD, starti:DWORD, endi:DWORD
+CountNearMatches PROTO
 
 .data
-	arr1 SDWORD 30, -40, 20, 65, 80,45
-	strt BYTE ?
-	endt BYTE ?
+	arrS1 SDWORD 4, 5, 43, 4, 3, 6,-2, -4
+	arrS2 SDWORD 9, 2, 3, -5, -3, 2, 11, 2
 .code
 main PROC
-	mov strt, 20
-	mov endt, 50
-	INVOKE arrSum, ADDR arr1, LENGTHOF arr1, strt, endt
-	call  crlf
-	mov strt, 35
-	mov endt, 90
-	INVOKE arrSUM, ADDR arr1,LENGTHOF arr1, strt,endt
+	mov ebx, 4 ;max difference is 4
+	push ebx
+	push offset arrS1
+	push offset arrS2
+	push LENGTHOF arrS1
+	push LENGTHOF arrS2
+	INVOKE CountNearMatches
 exit
-main endp
+main ENDP
 
-arrSum PROC USES ebx ecx edx esi edi, array1:PTR DWORD, size_arr:DWORD, starti:DWORD, endi:DWORD
-	LOCAL flag:BYTE ;flag tell when to start sum
-	mov flag, 10
-	mov esi, array1
-	mov ecx, size_arr
-	mov ebx, starti
-	mov edx, endi
-	mov eax,0
-	L1:
-		cmp ebx, [esi] ;once i is found change flag=1
-		JE start_flag
-	cont_1:
-		cmp edx, [esi];
-		JE end_flag
-		cmp flag, 1
-		JE do_sum ;once flagis 1 startmcvvm sum
-	cont_2:
-		cmp flag, 0
-		JE end_it_add ;if 0 stop
-		add esi, type arr1
-		LOOP L1
-		JMP end_it
-	do_sum:
-		add eax, [esi]
-		add esi, type arr1
-		LOOP L1
-JMP end_it
-start_flag:
-	mov flag, 1
-	JMP cont_1
-end_flag:
-	mov flag, 0
-	JMP cont_2
-end_it_add:
-	add eax,[esi];add the last inclusive  value
-	call writeDec
-	JMP end_fin
-end_it:
-	call writeDec
-end_fin:
+CountNearMatches PROC
+	LOCAL size1:DWORD, size2:DWORD, maxDF:DWORD
+	mov eax, 0
+	push ebp
+	mov ebp, esp
+	mov edx, [ebp+40]
+	mov maxDF, edx
+	mov edx, [ebp+28]
+	mov size1, edx
+	mov ebx, [ebp+24]
+	mov size2, ebx
+	mov esi, [ebp+36]
+	mov edi, [ebp+32]
+	mov ecx, size1
+L1:
+	mov ebx, [esi]
+	sub ebx, [edi]
+	CMP ebx, maxDF
+	JNLE L2
+	inc eax
+L2:
+	add esi, type arrS1
+	add edi, type arrS2
+	CMP size2, 0
+	JLE ENDD
+	dec size2
+	LOOP L1
+ENDD:
+leave
 ret
-arrSum ENDP
-end main
+CountNearMatches ENDP
+END main
