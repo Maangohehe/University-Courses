@@ -1,9 +1,0 @@
-﻿  N-Queen.cpp
-E:\Uni Assignments\Semester 3\Data Structures - Theory\Classwork\N-Queen\N-Queen.cpp(49,11): error C2065: 'i': undeclared identifier
-E:\Uni Assignments\Semester 3\Data Structures - Theory\Classwork\N-Queen\N-Queen.cpp(51,5): error C2059: syntax error: '}'
-E:\Uni Assignments\Semester 3\Data Structures - Theory\Classwork\N-Queen\N-Queen.cpp(51,5): error C2143: syntax error: missing ';' before '}'
-E:\Uni Assignments\Semester 3\Data Structures - Theory\Classwork\N-Queen\N-Queen.cpp(53,1): error C2059: syntax error: '}'
-E:\Uni Assignments\Semester 3\Data Structures - Theory\Classwork\N-Queen\N-Queen.cpp(53,1): error C2143: syntax error: missing ';' before '}'
-E:\Uni Assignments\Semester 3\Data Structures - Theory\Classwork\N-Queen\N-Queen.cpp(55,1): error C2143: syntax error: missing ';' before '{'
-E:\Uni Assignments\Semester 3\Data Structures - Theory\Classwork\N-Queen\N-Queen.cpp(55,1): error C2447: '{': missing function header (old-style formal list?)
-E:\Uni Assignments\Semester 3\Data Structures - Theory\Classwork\N-Queen\N-Queen.cpp(71,5): error C3861: 'solveNQ': identifier not found
