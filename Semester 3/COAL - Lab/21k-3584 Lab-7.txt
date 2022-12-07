@@ -1,0 +1,265 @@
+;Question: 1
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	space byte " ", 0
+	array DWORD 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+	new_array DWORD 10 DUP(0)
+.code
+main PROC
+	mov ecx, 10
+	mov eax, 0
+	mov esi, offset array
+	mov edi, offset new_array
+	L1:
+		push [esi + eax * type array]
+		pop [edi + eax * type new_array]
+		inc eax
+		loop L1
+	mov ebx, 0
+	mov ecx, 10
+	mov edx, offset space
+	L2:
+		mov eax, [esi + ebx * type new_array]
+		call writeint
+		call writestring
+		inc ebx
+		loop L2
+exit
+main ENDP
+END main
+
+
+;Question: 2
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+str2 BYTE "Sum of integers is: ",0
+str1 BYTE "Input an integer: ",0
+sum DWORD 0
+.code
+main PROC
+	mov ecx, 3
+	mov edx, offset str1
+	L1:
+		call writeString
+		call readInt
+		push eax
+		loop L1
+	mov eax, 0
+	mov ecx, 3
+	mov edx, offset str2
+	call writeString
+	L2:
+		pop eax
+		add sum, eax
+		loop L2
+	mov eax, sum
+	call writeInt
+exit
+main ENDP
+END main
+
+
+;Question: 3
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+str2 BYTE "Adding second array",0
+str1 BYTE "Adding first array",0
+str3 BYTE "Sum of both arrays: ",0
+sum1 DWORD 0
+sum2 DWORD 0
+sumBoth DWORD 0
+array1 DWORD 1, 2, 3, 4, 5
+array2 DWORD 6, 7, 8, 9, 10
+.code
+main PROC
+	mov esi, offset array1
+	mov edi, offset array2
+	call addArray1
+	call addArray2
+	call addBoth
+exit
+main ENDP
+
+addArray1 PROC USES esi
+	mov edx, offset str1
+	call writeString
+	call crlf
+	mov ebx, 0
+	mov eax, 0
+	mov ecx, 5
+	L1:
+		add eax, [esi + ebx * type array1]
+		inc ebx
+		loop L1
+	mov sum1, eax
+	ret
+addArray1 ENDP
+
+addArray2 PROC USES edi
+	mov edx, offset str2
+	call writeString
+	call crlf
+	mov ebx, 0
+	mov eax, 0
+	mov ecx, 5
+	L1:
+		add eax, [edi + ebx * type array2]
+		inc ebx
+		loop L1
+	mov sum2, eax
+	ret
+addArray2 ENDP
+
+addBoth PROC
+	mov edx, offset str3
+	call writeString
+	mov eax, sum1
+	add sumBoth, eax
+	mov eax, sum2
+	add sumBoth, eax
+	mov eax, sumBoth
+	call writeInt
+	call crlf
+	ret
+addBoth ENDP
+END main
+
+
+;Question: 4
+;Roll Number: 21K-3584
+include irvine32.inc
+.data?
+columns DWORD ?
+jumper DWORD ?
+.data
+space BYTE " ",0
+ast BYTE "*",0
+str1 BYTE "Input number of columns: ",0
+.code
+main PROC
+	mov edx, offset str1
+	call writeString
+	call readInt
+	mov columns, eax
+	mov jumper, eax
+	call printPattern
+exit
+main ENDP
+
+printPattern PROC
+	mov ecx, columns
+	OUTER:
+		mov ebx, 1
+		push ecx
+		mov ecx, columns
+		INNER:
+			cmp ebx, jumper
+			JE skip
+			JGE skip
+			JNE add_space
+			add_space:
+			mov edx, offset space
+			call writeString
+			skip:
+			cmp ebx, jumper
+			JL skip_again
+			mov edx, offset ast
+			call writeString
+			skip_again:
+			inc ebx
+			loop INNER
+			pop ecx
+			dec jumper
+			call crlf
+			loop OUTER
+		ret
+printPattern ENDP
+END main
+
+
+;Question: 5
+;Roll Number: 21K-3584
+include irvine32.inc
+.data?
+columns DWORD ?
+jumper DWORD ?
+.data
+space BYTE " ",0
+asci BYTE "A",0
+str1 BYTE "Input number of columns: ",0
+.code
+main PROC
+	mov edx, offset str1
+	call writeString
+	call readInt
+	mov columns, eax
+	mov jumper, eax
+	call printPattern
+exit
+main ENDP
+
+printPattern PROC
+	mov ecx, columns
+	OUTER:
+		mov ebx, 1
+		push ecx
+		mov ecx, columns
+		INNER:
+			cmp ebx, jumper
+			JE skip
+			JGE skip
+			JNE add_space
+
+			add_space:
+			mov edx, offset space
+			call writeString
+			skip:
+			cmp ebx, jumper
+			JL skip_again
+			mov edx, offset asci
+			call writeString
+			inc asci
+			skip_again:
+			inc ebx
+			loop INNER
+			pop ecx
+			dec jumper
+			call crlf
+			loop OUTER
+		ret
+printPattern ENDP
+END main
+
+
+;Question: 6
+;Roll Number: 21K-3584
+include irvine32.inc
+.data?
+number DWORD ?
+.data
+str2 BYTE "The sum of number is: ",0
+str1 BYTE "Input a number: ",0
+.code
+main PROC
+	mov edx, offset str1
+	call writeString
+	call readInt
+	mov number, eax
+	mov ecx, eax
+	call addNums
+	mov edx, offset str2
+	call writestring
+	call writeInt
+main ENDP
+
+addNums PROC USES ecx
+	mov eax, 0
+	L1:
+		add eax, ecx
+		loop l1
+	ret
+addNums ENDP
+END main

@@ -1,0 +1,3 @@
+https://www.cs.dartmouth.edu/~campbell/cs60/socketprogramming.html
+
+https://beej.us/guide/bgnet/html/#system-calls-or-bust

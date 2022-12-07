@@ -1,0 +1,3 @@
+﻿  Assembling 21K-3584_Lab_9.asm...
+21K-3584_Lab_9.asm(30): error A2008: syntax error : ,
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\BuildCustomizations\masm.targets(70,5): error MSB3721: The command "ml.exe /c /nologo /Zi /Fo"Debug\21K-3584_Lab_9.obj" /I "C:\irvine" /W3 /errorReport:prompt  /Ta"21K-3584_Lab_9.asm"" exited with code 1.

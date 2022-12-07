@@ -1,0 +1,5 @@
+﻿  NineTails.cpp
+E:\Uni Assignments\Semester 2\Object Oriented Programming\Assignment 2\NineTails\NineTails\NineTails.cpp(189,29): warning C4584: 'HappyBundle': base-class 'Gift' is already a base-class of 'Flowers'
+E:\Uni Assignments\Semester 2\Object Oriented Programming\Assignment 2\NineTails\NineTails\NineTails.cpp(28): message : see declaration of 'Gift'
+E:\Uni Assignments\Semester 2\Object Oriented Programming\Assignment 2\NineTails\NineTails\NineTails.cpp(53): message : see declaration of 'Flowers'
+  NineTails.vcxproj -> E:\Uni Assignments\Semester 2\Object Oriented Programming\Assignment 2\NineTails\x64\Debug\NineTails.exe

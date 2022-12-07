@@ -1,0 +1,54 @@
+;roll numer: 21K-3584
+;Task: 2
+Include irvine32.inc
+.data
+	arrayW WORD 150, 250, 350
+	arrayD DWORD 700, 1300, 1900
+	arrayB BYTE 10d, 20d, 25d ;Byte cannot have value more than 255
+.data?
+	sum1 DWORD ?
+	sum2 DWORD ?
+	sum3 DWORD ?
+.code
+main PROC
+	mov esi, OFFSET arrayB
+	mov eax, 0
+	add al, [esi]
+	add al, [esi+1]
+	add al, [esi+2]
+	mov ebx, 0
+	mov edx, 0
+	mov esi, OFFSET arrayW
+	add bx, [esi]
+	add bx, [esi + TYPE arrayW]
+	add bx, [esi + TYPE arrayW * 2]
+	mov esi, OFFSET arrayD
+	mov edx, [esi]
+	mov edx, [esi + TYPE arrayD]
+	mov edx, [esi + TYPE arrayD * 2]
+	mov sum1, eax
+	mov sum2, ebx
+	mov sum3, edx
+	exit
+main ENDP
+END main
+
+
+;roll numer: 21K-3584
+;Task: 1
+Include irvine32.inc
+.data
+	spacebar BYTE "  "
+.code
+main PROC
+	mov edx, offset spacebar
+	mov ecx, 10
+	L1:
+		call randomRange
+		call WriteInt
+		call crlf
+		call writeString
+		loop L1
+	exit
+main ENDP
+END main

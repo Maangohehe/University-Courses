@@ -1,0 +1,355 @@
+;Question: 1
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	product WORD 0
+.code
+main PROC
+	mov eax, 10
+	shl ax, 4
+	add product, ax
+	mov eax, 10
+	shl ax, 2
+	add product, ax
+	mov eax, 10
+	shl ax, 0
+	add product, ax
+	mov eax, 0
+	mov ax, product
+	call writeInt
+exit
+main ENDP
+END main
+
+;Question: 2
+;Roll Number: 21K-3584
+include irvine32.inc
+.code
+main Proc
+	mov ax, -128
+	sal eax, 16
+	sar eax, 16
+exit
+main ENDP
+END main
+
+
+;Question: 3
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+bMinutes WORD 1010001000100110b
+seconds WORD ?
+minutes WORD ?
+hour WORD ?
+str1 BYTE "Seconds: ",0
+str2 BYTE "Minutes: ",0
+str3 BYTE "Hours: ",0
+.code
+main Proc
+	mov eax, 0
+	mov ax, bMinutes
+	call writeBin
+	call crlf
+	AND ax, 1111100000000000b
+	shr ax, 12
+	mov seconds, ax
+	mov edx, offset str1
+	call writeString
+	call writeDec
+	call crlf
+	mov ax, bMinutes
+	AND ax, 0000011111100000b
+	shr ax, 8
+	call writeBin
+	call crlf
+	mov minutes, ax
+	mov edx, offset str2
+	call writeString
+	call writeDec
+	call crlf
+	mov ax, bMinutes
+	AND ax, 0000000000011111b
+	call writeBin
+	call crlf
+	mov edx, offset str3
+	call writeString
+	call writeDec
+	call crlf
+exit
+main ENDP
+END main
+
+
+;Question: 4
+;Roll Number: 21K-3584
+include irvine32.inc
+
+.code
+main Proc
+	; Without shrd
+	mov eax, 0
+	mov ax, 00001111b
+	mov ebx, 0
+	shl ax, 12
+	mov bx, ax
+	; With shrd
+	mov ax, 00001111b
+	mov ebx, 0
+	shrd bx, ax, 4
+
+exit
+main ENDP
+END main
+
+
+;Question: 5
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	val1 DWORD 0
+	val2 DWORD 0
+	val3  DWORD 0
+	str1 BYTE "What is val1: ",0
+	str2 BYTE "What is val2: ",0
+	str3 BYTE "What is val3: ",0
+.code
+main Proc
+	mov edx, offset str1
+	call writeString
+	call ReadInt
+	mov val1, eax
+	mov edx, offset str2
+	call writeString
+	call ReadInt
+	mov val2, eax
+	mov edx, offset str3
+	call writeString
+	call ReadInt
+	mov val3, eax
+	; First we divide val2 and val3
+	mov edx, val2
+	mov ecx, 2
+	mov eax, 0
+	div cx
+
+exit
+main ENDP
+END main
+
+;Question: 5
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	val1 DWORD 0
+	val2 DWORD 0
+	val3  DWORD 0
+	str1 BYTE "What is val1: ",0
+	str2 BYTE "What is val2: ",0
+	str3 BYTE "What is val3: ",0
+.code
+main Proc
+	mov edx, offset str1
+	call writeString
+	call ReadInt
+	mov val1, eax
+	mov edx, offset str2
+	call writeString
+	call ReadInt
+	mov val2, eax
+	mov edx, offset str3
+	call writeString
+	call ReadInt
+	mov val3, eax
+	; First we divide val2 and val3
+	mov edx, 0
+	mov eax, val2
+	div val3
+	;divide val1 and val2
+	mov ecx, eax
+	mov eax, val1
+	div val2
+	; multiply the two expession
+	mul ecx
+	mov val1, eax
+	call writeInt
+exit
+main ENDP
+END main
+
+
+;Question: 6
+;Roll number: 21K-3584
+include irvine32.inc
+.data
+	str1 BYTE "Input a number: ",0
+	num1 DWORD 0
+	num2 DWORD 0
+.code
+main proc
+	;We cannot add 64 bit integers because irvine32 does not permit the rax, rbx, rcx register
+	;We also cannot movzx eax into a memory operand since it is illegal
+	mov edx, offset str1
+	call writeString
+	call ReadDec
+	mov num1, eax
+	call writeString
+	call readDec
+	mov num2, eax
+	call ExtendedAdd
+	call WriteDec
+exit
+main ENDP
+
+ExtendedAdd PROC
+	add eax, num1
+ret
+ExtendedAdd ENDP
+end main
+
+
+;Question: 7
+;Roll number: 21K-3584
+include irvine32.inc
+.data
+	prime DWORD ?
+	str1 BYTE "Input a number: ",0
+	counter DWORD 2
+	is_not BYTE " Is not prime.",0
+	is_yes BYTE " Is prime.",0
+	condition DWORD ?
+.code
+main proc
+ENDLESS:
+	mov edx, OFFSET str1
+	call writeString
+	call readDec
+	cmp eax, 1
+	JE ENDD
+	mov prime, eax
+	call isPrime
+	JMP ENDLESS
+ENDD:
+exit
+main ENDP
+
+
+isPrime PROC
+	mov edx, 0
+	mov ebx, counter
+	div ebx
+	mov ebx, eax
+	mov eax, prime
+	is_prime:
+		mov edx, 0
+		div counter
+		cmp edx, 0
+		JE NOT_PRIME
+		cmp ebx, counter
+		JBE IS
+		inc counter
+		JMP is_prime
+NOT_PRIME:
+	mov eax, prime
+	call writeDec
+	mov edx, offset is_not
+	call writeString
+	call crlf
+	JMP END_IT
+IS:
+	mov eax, prime
+	call writeDec
+	mov edx, offset is_yes
+	call writeString
+	call crlf
+END_IT:
+ret
+isPrime ENDP
+end main
+
+
+
+;Question: 10
+;Roll number: 21K-3584
+include irvine32.inc
+.data
+	str1 BYTE "GCD is: ",0
+	str2 BYTE "Input num 1: ",0
+	str3 BYTE "Input num 2: ",0
+	num1 DWORD ?
+	num2 DWORD ?
+.code
+main proc
+	mov edx, offset str2
+	call writeString
+	call ReadDec
+	mov num1, eax
+	mov edx, offset str3
+	call writeString
+	call ReadDec
+	mov num2, eax
+	call GCD
+	mov edx, offset str1
+	mov eax, ebx
+	call writeString
+	call writeDec
+exit
+main ENDP
+
+GCD PROC
+		mov eax, num1
+		mov ebx, num2
+	L1:
+		mov edx,0
+		div ebx
+		cmp edx, 0
+		JE ENDD
+		mov eax, ebx
+		mov ebx, edx
+		JMP L1
+ENDD:
+ret
+GCD ENDP
+END main
+
+
+;Question: 10
+;Roll number: 21K-3584
+include irvine32.inc
+.data
+	str_num BYTE "100123456789765",0
+	dec_place DWORD ?
+	str1 BYTE "Input the decimal place: ",0
+	str_new BYTE 16 DUP(?)
+.code
+main proc
+	mov edx, offset str1
+	call writeString
+	call readDec
+	mov dec_place, eax
+	call writeScaled
+	mov edx, offset str_new
+	call writeString
+exit
+main ENDP
+
+WriteScaled PROC
+	mov ecx, LENGTHOF str_num
+	mov ebx, ecx
+	dec ebx
+	mov eax, 0
+	mov esi, 0
+	L1:
+		cmp esi, dec_place
+		JNE skip
+		mov str_num[esi], '.'
+		inc esi
+		dec ecx
+	skip:
+		mov al, str_num[esi]
+		mov str_new[esi], al
+		inc esi
+	loop L1
+ret
+WriteScaled ENDP
+END main

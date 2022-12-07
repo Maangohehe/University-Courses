@@ -1,0 +1,594 @@
+;Question: 1
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	x DWORD ?
+	y DWORD ?
+	z DWORD ?
+	str1 BYTE "Input x: ",0
+	str2 BYTE "Input y: ",0
+	str3 BYTE "Input z: ",0
+	prod BYTE "The product is: ",0
+.code
+main proc
+	mov edx, offset str1
+	call writeString
+	call ReadInt
+	mov x, eax
+	mov edx, offset str2
+	call writeString
+	call readInt
+	mov y, eax
+	mov edx, offset str3
+	call writeString
+	call readInt
+	mov z, eax
+	push x
+	push y
+	push z
+	call ThreeProd
+	exit
+main endp
+
+ThreeProd Proc
+	push ebp
+	mov ebp, esp
+	mov eax, [ebp+8]
+	mov ebx, [ebp+12]
+	mul ebx
+	mov ebx, [ebp+16]
+	mul ebx
+	pop ebp
+	mov edx, offset prod
+	call writeString
+	call writeInt
+ret
+ThreeProd endp
+END main
+
+;Question: 2
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	a DWORD ?
+	b DWORD ?
+	temp DWORD ?
+	str1 BYTE "Input a: ",0
+	str2 BYTE "Input b: ",0
+	str3 BYTE "The gcd is: ",0
+.code
+main proc
+	call TakeInput
+	exit
+main endp
+
+TakeInput PROC
+	mov edx, offset str1
+	call writeString
+	call readInt
+	mov a, eax
+	mov edx, offset str2
+	call writeString
+	call readInt
+	mov b, eax
+	push a
+	push b
+	call GCD
+	pop edx
+	pop ecx
+ret
+TakeInput ENDP
+
+GCD PROC
+	mov edx, 0
+	push ebp
+	mov ebp, esp
+	cmp eax, [ebp+12]; b is compared with a
+	JA L1 ;if b is greater
+	JB L2
+	jmp get_gcd
+	L1:
+	mov eax, [ebp+8]
+	mov ebx, [ebp+12] 
+	jmp get_gcd
+	L2: ;if a is greater
+	mov eax, [ebp+12]
+	mov ebx, [ebp+8] 
+	jmp get_gcd
+	get_gcd:
+		div ebx
+		mov eax, ebx
+		mov ebx, edx
+		cmp edx, 0 ;If remainder 0
+		JE end_it
+		mov edx, 0
+		jmp get_gcd
+	end_it:
+	call Display
+	pop ebp
+ret
+GCD endp
+
+Display PROC
+	mov edx, offset str3
+	call writeString
+	call writeInt
+ret
+Display Endp
+END main
+
+
+;Question: 3
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	counter DWORD 0
+	arr DWORD 2, 3, 4, 6, 4, 6, 7, 0, 10, 12, 13, 12, 40, 21, 1, 16, 19, 22, 14, 21
+ .code
+main PROC
+	push OFFSET arr
+	call MinMaxArray
+exit
+main ENDP
+
+MinMaxArray PROC
+	push ebp
+	mov ebp, esp
+	mov esi, [esp+8]
+	mov eax, [esi]
+	mov ecx, LENGTHOF arr
+	mov ebx, 0
+	find_max:
+		cmp ecx, 0
+		JE print
+		cmp eax, [esi + ebx * type arr]
+		JB assign
+		again:
+		dec ecx
+		inc ebx
+		jmp find_max
+
+	assign:
+		mov eax, [esi + ebx * type arr]
+		jmp again
+	print:
+	call writeInt
+	call crlf
+	mov ebx, 0
+	mov ecx, lengthof arr
+	get_min:
+		cmp ecx, 0
+		JE end_it
+		cmp eax, [esi + ebx * type arr]
+		JA assign_min
+		again_min:
+		dec ecx
+		inc ebx
+		jmp get_min
+	assign_min:
+		mov eax, [esi + ebx * type arr]
+		jmp again_min
+	end_it:
+	call writeInt
+	call crlf
+ret
+MinMaxArray ENDP
+end main
+
+
+;Question: 4
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	sq DWORD ?
+	str1 BYTE "Input a number: ",0
+ .code
+main PROC
+	mov edx, offset str1
+	call writeString
+	call readInt
+	mov sq, eax
+	push sq
+	call LocalSquare
+exit
+main ENDP
+
+LocalSquare PROC
+	enter 4, 0
+	mov DWORD PTR [ebp - 8], eax
+	mov eax, [ebp+8]
+	mul eax
+	mov ebx, eax
+	mov eax, edx
+	call writedec
+	mov eax, ebx
+	call writedec
+	leave
+	ret
+LocalSquare ENDP
+end main
+
+;Question: 5
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	str2 BYTE "The factorial is: ",0
+	str1 BYTE "Input a number: ",0
+.code
+main proc
+	mov edx, offset str1
+	call writeString
+	call readDec
+	mov ebx, eax
+	mov eax, 1
+	call Fact
+	mov edx, offset str2
+	call writeString
+	call writeDec
+	call crlf
+main endp
+Fact PROC
+	cmp ebx, 1
+	JE end_it
+	mul ebx
+	dec ebx
+	call Fact
+end_it:
+ret
+factorial ENDP
+end main
+
+
+;Question: 6
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	str4 BYTE "The time taken in recursion: ",0
+	str5 BYTE "The time taken using loop: ",0
+	str3 BYTE "The factorial using loop is: ",0
+	str2 BYTE "The factorial using recursion is: ",0
+	str1 BYTE "Input a number: ",0
+	msecR DWORD ?
+	fact DWORD ?
+	n DWORD ?
+.code
+main proc
+	mov edx, offset str1
+	call writeString
+	call readDec
+	mov n, eax
+	mov ebx, eax
+	call GetMseconds
+	mov msecR, eax
+	mov eax, 1
+	call FactRecurse
+	mov fact, eax
+	call GetMseconds
+	sub eax, msecR
+	mov msecR, eax
+	mov edx, offset str2
+	call writeString
+	mov eax, fact
+	call writeDec
+	call crlf
+	mov edx, offset str4
+	call writeString
+	mov eax, msecR
+	call writeDec
+	mov ebx, n
+	call GetMSeconds
+	mov msecR, eax
+	mov eax, n
+	call FactLoop
+	call getMseconds
+	sub msecR, eax
+	call crlf
+	mov edx, offset str3
+	call writeString
+	mov eax, fact
+	call writeDec
+	call crlf
+	mov edx, offset str5
+	call writeString
+	mov eax, msecr
+	call writeDec
+	call crlf
+main endp
+
+FactLoop PROC
+	
+	top:	cmp ebx, 1
+			JE end_loop
+			dec ebx
+			mul ebx
+			JMP top
+end_loop:
+	mov fact, eax
+ret
+FactLoop ENDP
+FactRecurse PROC
+	cmp ebx, 1
+	JE end_it
+	mul ebx
+	dec ebx
+	call FactRecurse
+end_it:
+ret
+FactRecurse ENDP
+end main
+
+
+;Question: 7
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	str2 BYTE "The largest prime number is: ",0
+	str1 BYTE "Input a number: ",0
+	nums DWORD 4 DUP(?)
+	not_prime BYTE " is not prime.",0
+	prime BYTE "All numbers are prime.",0
+	counter DWORD 2
+	all_prime BYTE 1
+	save_prime DWORD ?
+	prime_nums DWORD 4 DUP(0)
+.code
+main proc
+	mov esi, 0
+	mov ecx, LENGTHOF nums
+	mov edx, offset str1
+	TakeInput:
+		call writeString
+		call ReadDec
+		mov nums[esi], eax
+		add esi, type nums
+		loop TakeInput
+	mov ecx, LENGTHOF nums
+	mov esi, 0
+	mov edi, 0
+	check:
+		mov eax, nums[esi]
+		call CheckPrime
+		add esi, type nums
+		loop check
+	mov edx, 0
+	cmp all_prime, 1
+	JNE skip
+	mov edx, offset prime
+	call writeString
+	call crlf
+skip:
+	call LargestPrime
+	mov edx, offset str2
+	call writeString
+	call writeDec
+main endp
+
+LargestPrime PROC
+	mov esi, 0
+	mov eax, prime_nums[esi]
+	mov ecx, LENGTHOF prime_nums
+	L1:
+		mov ebx, prime_nums[esi]
+		cmp eax, ebx
+		JB assign
+	continue:
+		add esi, type prime_nums
+		LOOP L1
+JMP ENDD
+assign:
+	mov eax, prime_nums[esi]
+	JMP continue
+ENDD:
+ret
+LargestPrime ENDP
+
+CheckPrime PROC USES eax esi ecx
+	mov counter, 2
+	mov ecx, eax
+	mov save_prime, eax
+	mov esi, 0
+	is_prime:
+		mov edx, 0
+		div counter
+		cmp edx, 0
+		JE is_not
+		mov eax, save_prime
+		inc counter
+		cmp counter, eax
+		JAE END_PRIME
+		JMP is_prime
+is_not:
+	mov all_prime, 0
+	mov eax, save_prime
+	call writeDec
+	mov edx, offset not_prime
+	call writeString
+	call crlf
+	JMP ENDD
+END_PRIME:
+mov prime_nums[edi], eax
+add edi, type prime_nums
+ENDD:
+ret
+CheckPrime endp
+end main
+
+
+
+;Question: 8
+;Roll Number: 21K-3584
+include irvine32.inc
+bubbleSort PROTO, bArray: PTR DWORD
+.data
+	str1 BYTE "Input elements: ",0
+	str_print BYTE "Sorted Array: ",0
+	comma BYTE ", ",0
+	arr DWORD 6 DUP(?)
+.code
+main proc
+	mov ecx, lengthof arr
+	mov edx, offset str1
+	mov esi, 0
+	input:
+		call writeString
+		call readDec
+		mov arr[esi], eax
+		add esi, type arr
+		loop input
+	invoke bubbleSort, ADDR arr
+	mov ecx, LENGTHOF arr
+	mov esi, 0
+	mov edx, OFFSET str_print
+	call writeString
+	mov edx, OFFSET comma
+	display:
+		mov eax, arr[esi]
+		call writeDec
+		call writeString
+		add esi, type arr
+		loop display
+	exit
+main endp
+
+bubbleSort PROC, bArray:PTR DWORD
+	mov eax, 0
+	mov esi, bArray
+	mov edi, bArray
+	mov ecx, LENGTHOF arr
+	mov ebx, 0
+	L1:
+		push ecx
+		dec ecx
+		cmp ecx, 0
+		JE ENDD
+		L2:
+			mov eax, [esi]
+			mov ebx, [edi+4]
+			cmp eax, ebx
+			JA swap
+		continue:
+			add esi, type bArray
+			add edi, type bArray
+		Loop L2
+		pop ecx
+		mov esi, bArray
+		mov edi, bArray
+		Loop L1
+JMP ENDD
+swap:
+	xchg eax, [edi+4]
+	mov [esi], eax
+	JMP continue
+ENDD:	
+ret
+bubbleSort ENDP
+end main
+
+
+;Question: 9
+;Roll Number: 21K-3584
+include irvine32.inc
+TakeInput Proto
+Armstrong proto num:DWORD
+Display proto answer:DWORD
+.data
+	str1 BYTE "Input a number: ",0
+	num DWORD ?
+	power DWORD 0
+	yes BYTE " is armstrong.",0
+	no BYTE " is not armstrong.",0
+	sum DWORD 0
+.code
+main proc
+	invoke TakeInput
+	exit
+main endp
+
+TakeInput PROC
+	mov eax, esp
+	call writeHex
+	call crlf
+	mov eax, 0
+	mov edx, offset str1
+	call writeString
+	call readDec
+	mov num, eax
+	invoke Armstrong, num
+ret
+TakeInput ENDP
+
+Armstrong PROC arm_num:Dword
+	LOCAL temp:DWORD
+	LOCAL answer:DWORD
+	mov eax, esp
+	mov ebx, 10
+	call writeHex
+	mov ecx, arm_num ;First we calculate the power count
+	mov eax, arm_num
+	cmp eax, 9
+	JBE one_dig
+	L1:
+		mov edx, 0
+		div ebx
+		mov ecx, edx
+		inc power
+		cmp eax, 0
+		JE CHECK_ARM
+		JMP L1
+one_dig:
+	JMP it_is
+CHECK_ARM:
+	mov eax, arm_num
+	L2:
+	continue:
+		cmp eax, 0
+		JE Check
+		mov edx, 0
+		div ebx
+		push eax
+		;Calculate Power
+		mov ecx, power
+		dec ecx
+		mov eax, edx
+		mov temp, edx
+		L3:
+			mul temp
+			loop L3
+		add sum, eax
+		pop eax
+		JMP continue
+	Check:
+		mov eax, sum
+		cmp eax, num
+		JE it_is
+		mov answer, 0
+		jmp endd
+		it_is:
+		mov answer, 1
+	endd:
+	invoke Display, answer
+ret
+Armstrong endp
+
+Display PROC answer:DWORD
+	mov eax, esp
+	call writeHex
+	mov eax, num
+	call crlf
+	cmp answer, 1
+	JNE it_is_not
+	mov edx, offset yes
+	call writeDec
+	call writeString
+	call crlf
+	JMP END_IT
+it_is_not:
+	call writeDec
+	mov edx, offset no
+	call writeString
+	call crlf
+END_IT:
+ret
+Display ENDP
+
+end main

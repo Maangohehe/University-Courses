@@ -1,0 +1,4 @@
+﻿  SteinGateLimited.cpp
+E:\Uni Assignments\Semester 2\Object Oriented Programming\Mids practice\SteinGateLimited\SteinGateLimited\SteinGateLimited.cpp(142,22): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Uni Assignments\Semester 2\Object Oriented Programming\Mids practice\SteinGateLimited\SteinGateLimited\SteinGateLimited.cpp(161,22): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  SteinGateLimited.vcxproj -> E:\Uni Assignments\Semester 2\Object Oriented Programming\Mids practice\SteinGateLimited\x64\Debug\SteinGateLimited.exe

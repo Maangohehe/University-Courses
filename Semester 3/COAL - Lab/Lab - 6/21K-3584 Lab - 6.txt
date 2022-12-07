@@ -1,0 +1,54 @@
+;Question 1
+;Roll Number: 21K-3584
+include Irvine32.inc
+.data?
+	sum DWORD ?
+.data
+	term1 DWORD 0
+	term2 DWORD 1
+	next DWORD 0
+.code
+main PROC
+	mov eax, 0d ;Eax will store the fibonacci sum
+	mov ecx, 7
+	mov ebx, 0d
+	add eax, term1
+	add eax, term2
+	L1:
+		add ebx, term1 ;We use ebx as a next term
+		add ebx, term2
+		add eax, ebx ; add sum into eax
+		mov edx, term2
+		mov term1, edx
+		mov term2, ebx
+		mov ebx, 0
+		loop L1
+	call WriteInt
+	exit
+main endp
+end main
+
+;Question 2-a
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	pattern DWORD 1
+.code
+main PROC
+	mov eax, 0
+	mov ecx, 4
+	mov ebx, 4
+	mov edx, ecx
+	L1:
+		dec ebx
+		sub ecx, ebx
+		L2:
+			mov eax, pattern
+			call WriteInt
+			loop L2
+			dec edx
+			call crlf
+		loop L1
+		
+main ENDP
+END main

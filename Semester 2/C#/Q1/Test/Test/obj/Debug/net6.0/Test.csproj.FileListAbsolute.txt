@@ -1,0 +1,15 @@
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\bin\Debug\net6.0\Test.exe
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\bin\Debug\net6.0\Test.deps.json
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\bin\Debug\net6.0\Test.runtimeconfig.json
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\bin\Debug\net6.0\Test.dll
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\bin\Debug\net6.0\ref\Test.dll
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\bin\Debug\net6.0\Test.pdb
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\obj\Debug\net6.0\Test.csproj.AssemblyReference.cache
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\obj\Debug\net6.0\Test.GeneratedMSBuildEditorConfig.editorconfig
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\obj\Debug\net6.0\Test.AssemblyInfoInputs.cache
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\obj\Debug\net6.0\Test.AssemblyInfo.cs
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\obj\Debug\net6.0\Test.csproj.CoreCompileInputs.cache
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\obj\Debug\net6.0\Test.dll
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\obj\Debug\net6.0\ref\Test.dll
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\obj\Debug\net6.0\Test.pdb
+E:\Uni Assignments\Semester 2\C#\Q1\Test\Test\obj\Debug\net6.0\Test.genruntimeconfig.cache

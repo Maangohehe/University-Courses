@@ -1,0 +1,9 @@
+Calculus and Early Transadentals
+Differential Equations
+Elementary Linear Algebra
+How to C
+Problem Solving with C++
+Data Structures in C++
+Problem Solving with Java
+Digital Fundamentals
+C# and .NET

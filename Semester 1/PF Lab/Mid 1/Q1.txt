@@ -1,0 +1,73 @@
+#include <stdio.h>
+int main()
+{
+	int input, ecoffee, expresso=3, doublexp=5, greent=1, milkt=2, dcoffee, gtea, mtea, choice, total, totalcoffee, totaltea;
+	
+	while(1)
+	{
+		printf("\t\tDream Bean Coffee Shop\n\n");
+	printf("1. Coffe Categories\n");
+	printf("2. Tea Categories\n");
+	printf("Choose 1 or 2.\nInput: ");
+	scanf("%d", &input);
+		if(input==1)
+		{
+			
+			printf("Item\t\t\t\tPrice\n");
+			printf("1. Expresso\t\t\t$3\n");
+			printf("2. Double Expresso\t\t$5\n");
+			printf("Enter the Quantity of Expresso you want to order.\nInput: ");
+			scanf("%d", &ecoffee);
+			printf("Enter the amount of Double Expresso coffee you want to order.\nInput: ");
+			scanf("%d", &dcoffee);
+			printf("Do you want to continue?\nInput 1 for yes and 0 for no.\nInput: ");
+			totalcoffee=(ecoffee*expresso)+(dcoffee*doublexp)+totalcoffee;
+			scanf("%d", &choice);
+			if(choice==1)
+			{
+				continue;
+			}
+			else if(choice==0)
+			{
+				break;
+			}
+			else
+			{
+				printf("Enter a valid choice.");
+				return 0;
+			}
+		}
+		if(input==2)
+		{
+			
+			printf("Item\t\t\t\tPrice\n");
+			printf("1. Green Tea\t\t\t$1\n");
+			printf("2. Milk Tea\t\t\t$2\n");
+			printf("Enter the Quantity of Green Tea you want to order.\nInput: ");
+			scanf("%d", &gtea);
+			printf("Enter the amount of Milk Tea you want to order.\nInput: ");
+			scanf("%d", &mtea);
+			totaltea=(greent*gtea)+(milkt*mtea)+totaltea;
+			printf("Do you want to continue?\nInput 1 for yes and 0 for no.\nInput: ");
+			scanf("%d", &choice);
+			if(choice==1)
+			{
+				continue;
+			}
+			else if(choice==0)
+			{
+				break;
+			}
+			else
+			{
+				printf("Enter a valid choice.");
+				return 0;
+			}
+		}
+		//total=(ecoffee*expresso)+(dcoffee*doublexp)+(greent*gtea)+(milkt*mtea)+total;
+		
+	}
+	total=totaltea+totalcoffee;
+	printf("The Total bill is $%d.", total);
+	
+}

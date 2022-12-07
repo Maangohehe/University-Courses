@@ -1,0 +1,377 @@
+;Question: 1
+;Roll Number: 21K-3584
+
+include irvine32.inc
+.data
+	arr DWORD 4 DUP(?)
+	str1 BYTE "All integers are equal",0
+	str_fail BYTE "Integers are not equal",0
+.code
+main PROC
+mov ebx, 4
+mov esi, 0
+top: cmp ebx, 0
+	je next
+	call readInt
+	mov arr[esi], eax
+	add esi, type arr
+	dec ebx
+	jmp top
+next:
+mov esi, 0
+mov ecx, 3
+compare:
+	cmp ecx, 0
+	je equal
+	mov eax, arr[esi]
+	add esi, type arr
+	mov ebx, arr[esi]
+	cmp eax, ebx
+	jne not_equal
+	dec ecx
+	jmp compare
+not_equal:
+mov edx, offset str_fail
+call writeString
+jmp skip
+equal:
+mov edx, offset str1
+call writeString
+skip:
+exit
+main ENDP
+END main
+
+;Question: 2
+;Roll Number: 21K-3584
+
+include irvine32.inc
+.data
+	str1 BYTE "Index of non zero element: ",0
+	str2 BYTE "Non zero element is: ",0
+	str_fail BYTE "All elements are 0",0
+	intArr SWORD 0,0,0,150,120,35,-12,66,4,0
+.code
+main PROC
+	mov esi, 0 ;for indexing
+	mov ecx, lengthof intArr ;for ecx length
+	mov eax, 0
+	L1:
+		mov ax, intArr[esi] ;move curr element to eax
+		cmp ax, 0
+		JG yes
+		JL yes
+		add esi, type intArr
+		loop L1
+mov edx, offset str_fail
+call writeString
+jmp endd
+yes:
+mov edx, offset str1
+call writeString
+mov ax, si
+mov cl, 2
+div cl
+call writeInt
+call crlf
+mov edx, offset str2
+mov ax, intArr[esi]
+call writeString
+call writeInt
+call crlf
+endd:
+exit
+main ENDP
+END main
+
+;Question: 3
+;Roll Number: 21K-3584
+
+include irvine32.inc
+.data
+	x WORD ?
+	var WORD 5
+	intArr SWORD 0,0,0,150,120,35,-12,66,4,0
+.code
+main PROC
+	mov dx, var
+	inc dx
+	mov ecx, lengthof intArr
+	L1:
+		cmp cx, var
+		jg yes
+		jl no
+	yes:
+		cmp cx, dx
+		jge yes_again
+		jl no
+yes_again:
+mov ax, 0
+mov x, ax
+movzx eax, x
+call writeInt
+jmp endd
+no:
+mov ax, 1
+mov x, ax
+movzx eax, x
+call writeInt
+endd:
+exit
+main ENDP
+END main
+
+
+;Question: 4
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	var DWORD ?
+	str2 BYTE "World",0
+	str1 BYTE "Hello",0
+.code
+main PROC
+	mov ecx, 10
+	WHIL:
+		cmp ecx, var
+		JE endd
+		push ecx
+		mov ecx, 5
+		cmp ecx, var
+		JG yes
+		no:
+			mov edx, offset str2
+			call writeSTRING
+			inc var
+			pop ecx
+			jmp WHIL
+		yes:
+			mov edx, OFFSET str1
+			call writestring
+			inc var
+			pop ecx
+			jmp whil
+endd:
+exit
+main ENDP
+END main
+
+
+;Question: 5
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	arr WORD 10, 4, 7, 14, 299, 156, 3, 19, 29, 300, 20
+	str1 BYTE "Input element to search: ",0
+	str2 BYTE "Element found at index: ",0
+.code
+main PROC
+	mov edx, offset str1
+	call writeString
+	call ReadInt
+	mov ecx, LENGTHOF arr
+	call search
+	mov edx, offset str2
+	call writeString
+	mov ax, si
+	mov cl, 2
+	div cl
+	call writeInt
+exit
+main ENDP
+
+search PROC USES eax ecx
+	mov esi, 0
+	L1:
+		cmp ax, arr[esi]
+		JE FOUND
+		add esi, type arr
+		loop L1
+FOUND:
+ret
+search ENDP
+END main
+
+
+;Question: 6
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	arr WORD 10, 4, 7, 14, 299, 156, 3, 19, 29, 300, 20
+	str1 BYTE "Array before sorting: ",0
+	str2 BYTE "Array after sorting: ",0
+	space BYTE " ",0
+	temp WORD ?
+.code
+main PROC
+	mov ecx, LENGTHOF arr
+	mov edx, OFFSET str1
+	call writeString
+	call printarr
+	call crlf
+	mov edx, OFFSET str2
+	call writeString
+	call bubbleSort
+	call printArr
+exit
+main ENDP
+
+bubbleSort PROC USES eax ecx
+	mov ecx, LENGTHOF arr
+	mov eax, 0
+	L1:
+		mov esi, 0
+		mov edi, 2
+		push ecx
+		mov ecx, Lengthof arr
+		dec ecx
+		L2:
+			mov ax, arr[esi]
+			cmp ax, arr[edi]
+			JG swap
+			back:
+			add esi, type arr
+			add edi, type arr
+			loop L2
+		pop ecx
+		loop L1
+		jmp endd
+	swap:
+		xchg ax, arr[edi]
+		mov arr[esi], ax
+		jmp back
+endd:
+ret
+bubbleSort ENDP
+
+printarr PROC USES eax ecx
+	mov esi, 0
+	mov eax, 0
+	mov edx, offset space
+	L1:
+		mov ax, arr[esi]
+		call writeInt
+		call writeString
+		add esi, type arr
+		loop L1
+ret
+printarr ENDp
+END main
+
+
+;Question: 7
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	fail BYTE "Invalid day number!",0
+	str1 BYTE "Input a day number: ",0
+	day DWORD ?
+	monday BYTE "Monday",0
+	tuesday BYTE "Tuesday",0
+	wednesday BYTE "Wednesday",0
+	thursday BYTE "Thursday",0
+	friday BYTE "Friday",0
+	saturday BYTE "Saturday",0
+	sunday BYTE "Sunday",0
+.code
+main PROC
+	mov eax, 0
+again:
+	mov edx, offset str1
+	call writeString
+	call ReadInt
+	mov day, eax
+	cmp day, 1
+	JB wrong
+	JE mond
+	cmp day, 2
+	JE tues
+	cmp day, 3
+	JE wed
+	cmp day, 4
+	JE thurs
+	cmp day, 5
+	JE frid
+	cmp day, 6
+	JE satur
+	cmp day, 7
+	JE sun
+	JA wrong
+wrong:
+	mov edx, offset fail
+	call writeString
+	jmp again
+mond:
+	mov edx, offset monday
+	call writeString
+	jmp endd
+tues:
+	mov edx, offset tuesday
+	call writeString
+	jmp endd
+wed:
+	mov edx, offset wednesday
+	call writeString
+	jmp endd
+thurs:
+	mov edx, offset thursday
+	call writeString
+	jmp endd
+frid:
+	mov edx, offset friday
+	call writeString
+	jmp endd
+satur:
+	mov edx, offset saturday
+	call writeString
+	jmp endd
+sun:
+	mov edx, offset sunday
+	call writeString
+	jmp endd
+endd:
+main endp
+END main
+
+;Question: 8
+;Roll Number: 21K-3584
+include irvine32.inc
+.data
+	alpha BYTE ?
+	str1 BYTE "Input a character: ",0
+	is_alpha BYTE "Character is alphabet.",0
+	no_alpha BYTE "Character is not alphabet",0
+.code
+main PROC
+	mov eax, 0
+	mov edx, offset str1
+	call writeString
+	call readChar
+	call writeChar
+	call crlf
+	cmp al, 65
+	JAE above?
+	JMP no
+above?:
+	cmp al, 90
+	JBE yes
+	JAE again_above?
+	JMP no
+again_above?:
+	cmp al, 97
+	JAE small_alpha?
+	JMP no
+small_alpha?:
+	cmp al, 122
+	JBE yes
+	JMP no
+yes:
+	mov edx, offset is_alpha
+	call writeString
+	jmp endd
+no:
+	mov edx, offset no_alpha
+	call writeString
+endd:
+main ENDP
+END main
