@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BMI.cpp">
+    <ClCompile Include="project_21K-3584_21K-4753_.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="BMI_ASM.asm">
+    <MASM Include="project_21K-3584_21K-4753.asm">
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>

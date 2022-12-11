@@ -1,2 +1,3 @@
-﻿  BMI.cpp
-  BMI.vcxproj -> D:\Uni Assignments\Semester 3\COAL - Lab\Project\BMI\Debug\BMI.exe
+﻿  Assembling project_21K-3584_21K-4753.asm...
+C:\irvine\SmallWin.inc(11): warning A4011: multiple .MODEL directives found : .MODEL ignored
+  BMI.vcxproj -> D:\University-Courses\Semester 3\COAL - Lab\Project\BMI\Debug\BMI.exe
