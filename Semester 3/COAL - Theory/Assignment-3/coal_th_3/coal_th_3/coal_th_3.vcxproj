@@ -86,6 +86,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\irvine</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);irvine32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateMapFile>true</GenerateMapFile>
     </Link>
     <MASM>
       <IncludePaths>C:\irvine</IncludePaths>
